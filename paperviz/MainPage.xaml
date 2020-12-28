@@ -15,6 +15,7 @@
                 FontSize="Title"
                 Command="{Binding ScanCommand}"
                 HorizontalOptions="Center"/>
+        <Image Source="{Binding PhotoPath}"></Image>
     </StackLayout>
 
 </ContentPage>

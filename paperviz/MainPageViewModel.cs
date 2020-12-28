@@ -1,3 +1,5 @@
+using System;
+using System.IO;
 using System.Threading.Tasks;
 using AsyncAwaitBestPractices.MVVM;
 using Xamarin.Essentials;
@@ -7,12 +9,10 @@ namespace paperviz
 {
     public class MainPageViewModel : ViewModelBase
     {
-        private IMediaServices _mediaServices;
 
         public MainPageViewModel()
         {
             ScanCommand = new AsyncCommand(Scan);
-            _mediaServices = DependencyService.Get<IMediaServices>();
         }
 
         private async Task Scan()
@@ -25,7 +25,38 @@ namespace paperviz
 
             if (status != PermissionStatus.Granted) return;
             
-            var image = await _mediaServices.GetImageWithCamera();
+            try
+            {
+                var photo = await MediaPicker.CapturePhotoAsync();
+                await LoadPhotoAsync(photo);
+                Console.WriteLine($"CapturePhotoAsync COMPLETED: {PhotoPath}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"CapturePhotoAsync THREW: {ex.Message}");
+            }
+        }
+        async Task LoadPhotoAsync(FileResult photo)
+        {
+            // canceled
+            if (photo == null)
+            {
+                PhotoPath = null;
+                return;
+            }
+            // save the file into local storage
+            var newFile = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
+            using (var stream = await photo.OpenReadAsync())
+            using (var newStream = File.OpenWrite(newFile))
+                await stream.CopyToAsync(newStream);
+
+            PhotoPath = newFile;
+        }
+
+        public string PhotoPath
+        {
+            get => Get("");
+            set => Set(value);
         }
 
         public AsyncCommand ScanCommand { get; }

@@ -29,7 +29,6 @@ namespace paperviz.Droid
         
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
-            MediaServices.OnActivityResult(requestCode, resultCode, data);
             base.OnActivityResult(requestCode, resultCode, data);
         }        
     }
