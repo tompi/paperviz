@@ -16,6 +16,7 @@
                 Command="{Binding ScanCommand}"
                 HorizontalOptions="Center"/>
         <Image Source="{Binding PhotoPath}"></Image>
+        <Label Text="{Binding Text}"></Label>
     </StackLayout>
 
 </ContentPage>

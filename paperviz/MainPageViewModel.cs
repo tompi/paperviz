@@ -10,9 +10,12 @@ namespace paperviz
     public class MainPageViewModel : ViewModelBase
     {
 
+        private readonly IOcrService _ocrService;
+        
         public MainPageViewModel()
         {
             ScanCommand = new AsyncCommand(Scan);
+            _ocrService = DependencyService.Get<IOcrService>();
         }
 
         private async Task Scan()
@@ -28,8 +31,13 @@ namespace paperviz
             try
             {
                 var photo = await MediaPicker.CapturePhotoAsync();
-                await LoadPhotoAsync(photo);
-                Console.WriteLine($"CapturePhotoAsync COMPLETED: {PhotoPath}");
+                using (var stream = await photo.OpenReadAsync())
+                {
+                    Text = _ocrService.GetTexts(stream);
+                }
+                
+                //await LoadPhotoAsync(photo);
+                //Console.WriteLine($"CapturePhotoAsync COMPLETED: {PhotoPath}");
             }
             catch (Exception ex)
             {
@@ -54,6 +62,11 @@ namespace paperviz
         }
 
         public string PhotoPath
+        {
+            get => Get("");
+            set => Set(value);
+        }
+        public string Text
         {
             get => Get("");
             set => Set(value);
