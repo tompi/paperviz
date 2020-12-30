@@ -1,5 +1,6 @@
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using Android.Gms.Vision.Texts;
 using Android.Graphics;
 using Xamarin.Essentials;
@@ -21,7 +22,7 @@ namespace paperviz.Droid
                 .Build();
         }
 
-        public string GetTexts(Stream bitmapStream)
+        public Task<string> GetTexts(Stream bitmapStream)
         {
             if (!_recognizer.IsOperational)
             {
@@ -34,10 +35,16 @@ namespace paperviz.Droid
             var sb = new StringBuilder();
             for (var i = 0; i < results.Size(); i++)
             {
+                var block = (TextBlock) results.ValueAt(i);
+                if (block != null)
+                {
+                    // TODO: Add block position
+                    sb.AppendLine(block.Value);
+                }
                 sb.AppendLine(((TextBlock) results.ValueAt(i))?.Value);
             }
 
-            return sb.ToString();
+            return Task.FromResult(sb.ToString());
         }
     }
 }

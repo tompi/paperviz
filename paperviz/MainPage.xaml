@@ -18,5 +18,4 @@
         <Image Source="{Binding PhotoPath}"></Image>
         <Label Text="{Binding Text}"></Label>
     </StackLayout>
-
 </ContentPage>

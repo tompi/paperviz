@@ -33,7 +33,8 @@ namespace paperviz
                 var photo = await MediaPicker.CapturePhotoAsync();
                 using (var stream = await photo.OpenReadAsync())
                 {
-                    Text = _ocrService.GetTexts(stream);
+                    var text = await _ocrService.GetTexts(stream);
+                    Device.BeginInvokeOnMainThread(() => Text = text);
                 }
                 
                 //await LoadPhotoAsync(photo);
