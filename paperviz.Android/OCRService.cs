@@ -1,8 +1,8 @@
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 using Android.Gms.Vision.Texts;
 using Android.Graphics;
+using paperviz.Text;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Exception = System.Exception;
@@ -13,7 +13,7 @@ namespace paperviz.Droid
 {
     public class OcrService : IOcrService
     {
-        private TextRecognizer _recognizer;
+        private readonly TextRecognizer _recognizer;
 
         public OcrService()
         {
@@ -22,29 +22,43 @@ namespace paperviz.Droid
                 .Build();
         }
 
-        public Task<string> GetTexts(Stream bitmapStream)
+        public Task<ScanResult> ProcessImage(Stream bitmapStream)
         {
             if (!_recognizer.IsOperational)
             {
                 throw new Exception("Recognizer not operational.");
             }
 
-            var bitmap = BitmapFactory.DecodeStream(bitmapStream);
-            var frame = new Frame.Builder().SetBitmap(bitmap).Build();
-            var results = _recognizer.Detect(frame);
-            var sb = new StringBuilder();
+            using var bitmap = BitmapFactory.DecodeStream(bitmapStream);
+            using var frame = new Frame.Builder().SetBitmap(bitmap).Build();
+            using var results = _recognizer.Detect(frame);
+            var result = new ScanResult();
             for (var i = 0; i < results.Size(); i++)
             {
-                var block = (TextBlock) results.ValueAt(i);
-                if (block != null)
+                var androidBlock = (TextBlock) results.ValueAt(i);
+                if (androidBlock != null)
                 {
-                    // TODO: Add block position
-                    sb.AppendLine(block.Value);
+                    result.Blocks.Add(GetBlock(androidBlock));
                 }
-                sb.AppendLine(((TextBlock) results.ValueAt(i))?.Value);
             }
 
-            return Task.FromResult(sb.ToString());
+            return Task.FromResult(result);
+        }
+
+        private Block GetBlock(TextBlock androidBlock)
+        {
+            var block = new Block
+            {
+                Text = androidBlock.Value,
+                BoundingBox = new BoundingBox
+                {
+                    Left = androidBlock.BoundingBox.Left,
+                    Top = androidBlock.BoundingBox.Top,
+                    Right = androidBlock.BoundingBox.Right,
+                    Bottom = androidBlock.BoundingBox.Bottom
+                }
+            };
+            return block;
         }
     }
 }

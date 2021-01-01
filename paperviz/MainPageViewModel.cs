@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using AsyncAwaitBestPractices.MVVM;
 using Xamarin.Essentials;
@@ -33,8 +34,8 @@ namespace paperviz
                 var photo = await MediaPicker.CapturePhotoAsync();
                 using (var stream = await photo.OpenReadAsync())
                 {
-                    var text = await _ocrService.GetTexts(stream);
-                    Device.BeginInvokeOnMainThread(() => Text = text);
+                    var scanResults = await _ocrService.ProcessImage(stream);
+                    Text = string.Join(Environment.NewLine, scanResults.Blocks.Select(b => b.Text));
                 }
                 
                 //await LoadPhotoAsync(photo);

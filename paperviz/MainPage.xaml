@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:paperviz="clr-namespace:paperviz;assembly=paperviz"
              x:DataType="paperviz:MainPageViewModel"
+             BackgroundColor="White"
              x:Class="paperviz.MainPage">
 
     <StackLayout>
@@ -16,6 +17,8 @@
                 Command="{Binding ScanCommand}"
                 HorizontalOptions="Center"/>
         <Image Source="{Binding PhotoPath}"></Image>
-        <Label Text="{Binding Text}"></Label>
+        <ScrollView>
+            <Label Text="{Binding Text}" TextColor="Black"></Label>
+        </ScrollView>
     </StackLayout>
 </ContentPage>

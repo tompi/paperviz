@@ -1,10 +1,11 @@
 using System.IO;
 using System.Threading.Tasks;
+using paperviz.Text;
 
 namespace paperviz
 {
     public interface IOcrService
     {
-        Task<string> GetTexts(Stream bitmapStream);
+        Task<ScanResult> ProcessImage(Stream bitmapStream);
     }
 }
