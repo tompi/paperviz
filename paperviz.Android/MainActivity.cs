@@ -18,7 +18,7 @@ namespace paperviz.Droid
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             Xamarin.Forms.Forms.Init(this, savedInstanceState);
-            LoadApplication(new App());
+            LoadApplication(new App(new AndroidInitializer()));
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
         {

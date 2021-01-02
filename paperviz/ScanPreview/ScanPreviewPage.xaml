@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:scanPreview="clr-namespace:paperviz.ScanPreview;assembly=paperviz"
+             x:DataType="scanPreview:ScanPreviewPageViewModel"
+             xmlns:forms9Patch="clr-namespace:Forms9Patch;assembly=Forms9Patch"
+             x:Class="paperviz.ScanPreview.ScanPreviewPage">
+    <ContentPage.Content>
+        <AbsoluteLayout 
+            VerticalOptions="FillAndExpand"
+            HorizontalOptions="FillAndExpand"
+            BindableLayout.ItemsSource="{Binding TextBoxes}">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate x:DataType="scanPreview:TextBox">
+                    <forms9Patch:Label 
+                        Text="{Binding Text}"
+                        AbsoluteLayout.LayoutBounds="{Binding LayoutBounds}"/>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

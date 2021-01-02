@@ -28,18 +28,16 @@ namespace paperviz.iOS
             {
                 var results = vnRequest.GetResults<VNRecognizedTextObservation>();
 
-                var blocks = new List<Block>();
+                var scanResult = new ScanResult();
                 foreach (var textObservation in results)
                 {
                     var candidate = textObservation.TopCandidates(1).FirstOrDefault();
                     
                     if (candidate != null)
                     {
-                        blocks.Add(GetBlock(candidate, textObservation));
+                        scanResult.Add(GetBlock(candidate, textObservation));
                     }
                 }
-                var scanResult = new ScanResult();
-                scanResult.Blocks.AddRange(blocks.OrderBy(b => b.BoundingBox.Top));
                 completionSource.TrySetResult(scanResult);
             });
 

@@ -3,6 +3,8 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AsyncAwaitBestPractices.MVVM;
+using paperviz.ScanPreview;
+using Prism.Navigation;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -12,11 +14,15 @@ namespace paperviz
     {
 
         private readonly IOcrService _ocrService;
+        private readonly CurrentImageService _currentImageService;
+        private readonly INavigationService _navigationService;
         
-        public MainPageViewModel()
+        public MainPageViewModel(IOcrService ocrService, CurrentImageService currentImageService, INavigationService navigationService)
         {
+            _ocrService = ocrService;
+            _currentImageService = currentImageService;
+            _navigationService = navigationService;
             ScanCommand = new AsyncCommand(Scan);
-            _ocrService = DependencyService.Get<IOcrService>();
         }
 
         private async Task Scan()
@@ -35,7 +41,8 @@ namespace paperviz
                 using (var stream = await photo.OpenReadAsync())
                 {
                     var scanResults = await _ocrService.ProcessImage(stream);
-                    Text = string.Join(Environment.NewLine, scanResults.Blocks.Select(b => b.Text));
+                    _currentImageService.ScanResult = scanResults;
+                    await _navigationService.NavigateAsync(nameof(ScanPreviewPage));
                 }
                 
                 //await LoadPhotoAsync(photo);
@@ -46,34 +53,7 @@ namespace paperviz
                 Console.WriteLine($"CapturePhotoAsync THREW: {ex.Message}");
             }
         }
-        async Task LoadPhotoAsync(FileResult photo)
-        {
-            // canceled
-            if (photo == null)
-            {
-                PhotoPath = null;
-                return;
-            }
-            // save the file into local storage
-            var newFile = Path.Combine(FileSystem.CacheDirectory, photo.FileName);
-            using (var stream = await photo.OpenReadAsync())
-            using (var newStream = File.OpenWrite(newFile))
-                await stream.CopyToAsync(newStream);
-
-            PhotoPath = newFile;
-        }
-
-        public string PhotoPath
-        {
-            get => Get("");
-            set => Set(value);
-        }
-        public string Text
-        {
-            get => Get("");
-            set => Set(value);
-        }
-
+        
         public AsyncCommand ScanCommand { get; }
     }
 }

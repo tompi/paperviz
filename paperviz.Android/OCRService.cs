@@ -2,15 +2,15 @@ using System.IO;
 using System.Threading.Tasks;
 using Android.Gms.Vision.Texts;
 using Android.Graphics;
+using JetBrains.Annotations;
 using paperviz.Text;
 using Xamarin.Essentials;
-using Xamarin.Forms;
 using Exception = System.Exception;
 using Frame = Android.Gms.Vision.Frame;
 
-[assembly: Dependency(typeof(paperviz.Droid.OcrService))]
 namespace paperviz.Droid
 {
+    [UsedImplicitly]
     public class OcrService : IOcrService
     {
         private readonly TextRecognizer _recognizer;
@@ -38,7 +38,7 @@ namespace paperviz.Droid
                 var androidBlock = (TextBlock) results.ValueAt(i);
                 if (androidBlock != null)
                 {
-                    result.Blocks.Add(GetBlock(androidBlock));
+                    result.Add(GetBlock(androidBlock));
                 }
             }
 

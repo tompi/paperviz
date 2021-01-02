@@ -4,10 +4,11 @@
              xmlns:paperviz="clr-namespace:paperviz;assembly=paperviz"
              x:DataType="paperviz:MainPageViewModel"
              BackgroundColor="White"
+             NavigationPage.HasNavigationBar="false"
              x:Class="paperviz.MainPage">
 
     <StackLayout>
-        <Frame BackgroundColor="#235434" Padding="24" CornerRadius="0">
+        <Frame BackgroundColor="#9900cc" Padding="24" CornerRadius="0">
             <Label Text="PaperViz" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
         </Frame>
         <Button Text="Scan"
@@ -16,9 +17,5 @@
                 FontSize="Title"
                 Command="{Binding ScanCommand}"
                 HorizontalOptions="Center"/>
-        <Image Source="{Binding PhotoPath}"></Image>
-        <ScrollView>
-            <Label Text="{Binding Text}" TextColor="Black"></Label>
-        </ScrollView>
     </StackLayout>
 </ContentPage>

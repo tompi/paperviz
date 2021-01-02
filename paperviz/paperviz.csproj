@@ -12,6 +12,11 @@
 
   <ItemGroup>
     <PackageReference Include="AsyncAwaitBestPractices.MVVM" Version="5.0.2" />
+    <PackageReference Include="Forms9Patch" Version="2.4.9" />
+    <PackageReference Include="JetBrains.Annotations" Version="2020.3.0" />
+    <PackageReference Include="Prism.Forms" Version="8.0.0.1909" />
+    <PackageReference Include="Prism.Unity.Forms" Version="8.0.0.1909" />
+    <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1821" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.0" />
   </ItemGroup>
