@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using UIKit;
 
 namespace paperviz.iOS
@@ -22,6 +25,8 @@ namespace paperviz.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            AppCenter.Start("0ad6d750-13bd-4942-9f79-807ecd054289",
+                typeof(Analytics), typeof(Crashes));            
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 

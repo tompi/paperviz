@@ -3,6 +3,9 @@ using Android.Content;
 using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 
 namespace paperviz.Droid
 {
@@ -15,6 +18,9 @@ namespace paperviz.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(savedInstanceState);
+            
+            AppCenter.Start("4813564a-3270-4b06-83de-da27d3dd138c",
+                typeof(Analytics), typeof(Crashes));
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             Xamarin.Forms.Forms.Init(this, savedInstanceState);
