@@ -32,7 +32,6 @@ namespace paperviz.iOS
                 foreach (var textObservation in results)
                 {
                     var candidate = textObservation.TopCandidates(1).FirstOrDefault();
-                    
                     if (candidate != null)
                     {
                         scanResult.Add(GetBlock(candidate, textObservation));
@@ -57,6 +56,8 @@ namespace paperviz.iOS
             var block = new Block
             {
                 Text = $"{vnRecognizedText.String} ({vnRecognizedTextObservation.Confidence})",
+                // TODO: Feels like this ought to be somewhere in the ios sdk...
+                Lines = 1,
                 BoundingBox = new BoundingBox
                 {
                     Left = (int) vnRecognizedTextObservation.TopLeft.X,

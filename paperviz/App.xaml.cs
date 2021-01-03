@@ -1,4 +1,7 @@
-﻿using paperviz.ScanPreview;
+﻿using paperviz.Export.Excel;
+using paperviz.Export.Json;
+using paperviz.Export.Text;
+using paperviz.ScanPreview;
 using Prism;
 using Prism.Ioc;
 using Xamarin.Essentials;
@@ -9,6 +12,8 @@ namespace paperviz
     public partial class App
     {
         public App() : this(null) { }
+
+        public static string Title = "PaperViz";
         
         public static double ScreenWidth =>
             DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density;
@@ -33,6 +38,9 @@ namespace paperviz
             containerRegistry.RegisterForNavigation<ScanPreviewPage>();
 
             containerRegistry.RegisterSingleton<CurrentImageService>();
+            containerRegistry.RegisterSingleton<TextExportService>();
+            containerRegistry.RegisterSingleton<JsonExportService>();
+            containerRegistry.RegisterSingleton<ExcelExportService>();
         }
 
         protected override async void OnInitialized()

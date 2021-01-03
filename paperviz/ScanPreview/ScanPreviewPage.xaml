@@ -7,17 +7,23 @@
              xmlns:forms9Patch="clr-namespace:Forms9Patch;assembly=Forms9Patch"
              x:Class="paperviz.ScanPreview.ScanPreviewPage">
     <ContentPage.Content>
-        <AbsoluteLayout 
-            VerticalOptions="FillAndExpand"
-            HorizontalOptions="FillAndExpand"
-            BindableLayout.ItemsSource="{Binding TextBoxes}">
-            <BindableLayout.ItemTemplate>
-                <DataTemplate x:DataType="scanPreview:TextBox">
-                    <forms9Patch:Label 
-                        Text="{Binding Text}"
-                        AbsoluteLayout.LayoutBounds="{Binding LayoutBounds}"/>
-                </DataTemplate>
-            </BindableLayout.ItemTemplate>
-        </AbsoluteLayout>
+        <StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Button Text="Text" Command="{Binding TextCommand}"/>
+                <Button Text="Json" Command="{Binding JsonCommand}"/>
+            </StackLayout>            
+            <AbsoluteLayout 
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand"
+                BindableLayout.ItemsSource="{Binding TextBoxes}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="scanPreview:TextBox">
+                        <forms9Patch:Label 
+                            Text="{Binding Text}"
+                            AbsoluteLayout.LayoutBounds="{Binding LayoutBounds}"/>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </AbsoluteLayout>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

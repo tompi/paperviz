@@ -50,6 +50,7 @@ namespace paperviz.Droid
             var block = new Block
             {
                 Text = androidBlock.Value,
+                Lines = androidBlock.Components.Count,
                 BoundingBox = new BoundingBox
                 {
                     Left = androidBlock.BoundingBox.Left,
