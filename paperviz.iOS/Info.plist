@@ -9,15 +9,10 @@
     <key>UISupportedInterfaceOrientations</key>
     <array>
       <string>UIInterfaceOrientationPortrait</string>
-      <string>UIInterfaceOrientationLandscapeLeft</string>
-      <string>UIInterfaceOrientationLandscapeRight</string>
     </array>
     <key>UISupportedInterfaceOrientations~ipad</key>
     <array>
       <string>UIInterfaceOrientationPortrait</string>
-      <string>UIInterfaceOrientationPortraitUpsideDown</string>
-      <string>UIInterfaceOrientationLandscapeLeft</string>
-      <string>UIInterfaceOrientationLandscapeRight</string>
     </array>
     <key>MinimumOSVersion</key>
     <string>10.0</string>
@@ -26,7 +21,7 @@
     <key>CFBundleIdentifier</key>
     <string>no.appman.paperviz</string>
     <key>CFBundleVersion</key>
-    <string>1.0.2</string>
+    <string>1.0.3</string>
     <key>UILaunchStoryboardName</key>
     <string>LaunchScreen</string>
     <key>CFBundleName</key>
@@ -41,8 +36,8 @@
     <string>This app needs access to the photo gallery for picking photos and videos.</string>
     <key>NSPhotoLibraryUsageDescription</key>
     <string>This app needs access to photos gallery for picking photos and videos.</string>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>        
+    <key>ITSAppUsesNonExemptEncryption</key>
+    <false />
   </dict>
 </plist>
 

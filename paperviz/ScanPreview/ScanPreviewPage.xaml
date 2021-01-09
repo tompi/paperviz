@@ -9,8 +9,10 @@
     <ContentPage.Content>
         <StackLayout>
             <StackLayout Orientation="Horizontal">
-                <Button Text="Text" Command="{Binding TextCommand}"/>
-                <Button Text="Json" Command="{Binding JsonCommand}"/>
+                <Button Text="Text" Command="{Binding TextCommand}"
+                        Visual="Material"/>
+                <Button Text="Json" Command="{Binding JsonCommand}"
+                        Visual="Material"/>
             </StackLayout>            
             <AbsoluteLayout 
                 VerticalOptions="FillAndExpand"

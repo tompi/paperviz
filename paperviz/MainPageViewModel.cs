@@ -1,15 +1,14 @@
 using System;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using AsyncAwaitBestPractices.MVVM;
+using JetBrains.Annotations;
 using paperviz.ScanPreview;
 using Prism.Navigation;
 using Xamarin.Essentials;
-using Xamarin.Forms;
 
 namespace paperviz
 {
+    [UsedImplicitly]
     public class MainPageViewModel : ViewModelBase
     {
 

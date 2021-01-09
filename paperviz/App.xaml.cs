@@ -47,7 +47,7 @@ namespace paperviz
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/MainPage");            
+            await NavigationService.NavigateAsync($"/{nameof(NavigationPage)}/{nameof(MainPage)}");            
         }
 
         protected override void OnResume()

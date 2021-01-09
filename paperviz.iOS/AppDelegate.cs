@@ -28,7 +28,8 @@ namespace paperviz.iOS
             AppCenter.Start("0ad6d750-13bd-4942-9f79-807ecd054289",
                 typeof(Analytics), typeof(Crashes));            
             global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new App());
+            Forms9Patch.iOS.Settings.Initialize(this);
+            LoadApplication(new App(new IosInitializer()));
 
             return base.FinishedLaunching(app, options);
         }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Foundation;
 using ImageIO;
 using paperviz.Text;
+using UIKit;
 using Vision;
 using Xamarin.Forms;
 
@@ -17,10 +18,14 @@ namespace paperviz.iOS
         public Task<ScanResult> ProcessImage(Stream bitmapStream)
         {
             var imageData = NSData.FromStream(bitmapStream);
+            var image = UIImage.LoadFromData(imageData);
+            var v = new VNImageOptions();
+            if (image.CGImage == null) throw new Exception("No image");
+            
             // TODO: Find a way to make orientation foolproof
             // (Probably convert stream to UIImage which has orientation encoded...)
             var requestHandler =
-                new VNImageRequestHandler(imageData, CGImagePropertyOrientation.Up, new NSDictionary());
+                new VNImageRequestHandler(image.CGImage, v); 
             
             var completionSource = new TaskCompletionSource<ScanResult>();
 
